@@ -88,6 +88,7 @@ Gjør følgende ved hjelp av list comprehensions:
 1. Lag en liste med 2er-potenser:  
    `[2, 4, 8, 16, 32, 64, 128, 256, 512, ...]`
 2. Skriv ut gangetabellen for tallene fra 1 til 10.
+3. TODO: Flere oppgaver...
 
 ---
 
@@ -224,6 +225,58 @@ Hva skjedde her?
 ---
 
 # Decorators
+
+Eksempel på enkel decorator som tar tiden på funksjoner:
+
+    .python
+    import time
+
+    def timeit(fn):
+        def wrapped_fn():
+            start = time.time()
+            fn()
+            end_time = time.time()
+            print "brukte %f sekunder" % (time.time() - start)
+        return wrapped_fn
+        
+    @timeit
+    def treg_funksjon():
+        time.sleep(2)
+
+I bruk:
+    
+    .python
+    >>> treg_funksjon()
+    brukte 2.001827 sekunder
+    >>> treg_funksjon()
+    brukte 2.002062 sekunder
+
+---
+
+# Decorators
+
+Eksempel på decorator som teller antall argumenter:
+    
+    .python
+    def count_args(fn):
+        def decorated_fn(*args, **kwargs):
+            print "fikk inn %d argument(er)" % len(args)
+            fn(*args, **kwargs)
+        return decorated_fn
+        
+    @count_args
+    def fn_with_args(*args):
+        pass
+
+I bruk:
+        
+    .python
+    >>> fn_with_args("foo")
+    fikk inn 1 argument(er)
+    >>> fn_with_args("foo","bar")
+    fikk inn 2 argument(er)
+    >>> fn_with_args(*range(10))
+    fikk inn 10 argument(er)
 
 ---
 
