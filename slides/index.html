@@ -273,7 +273,7 @@ I bruk:
 
 # Decorators
 
-Eksempel på decorator som teller antall argumenter:
+Eksempel på decorator som teller antall argumenter den dekorerte funksjonen får som input:
     
     .python
     def count_args(fn):
@@ -295,6 +295,42 @@ I bruk:
     fikk inn 2 argument(er)
     >>> fn_with_args(*range(10))
     fikk inn 10 argument(er)
+
+---
+
+# Decorators
+
+Dekoratoren kan også fint brukes på metoder på objekter:
+
+    def count_args(fn):
+        def decorated_fn(*args, **kwargs):
+            print "fikk inn %d argument(er)" % len(args)
+            fn(*args, **kwargs)
+        return decorated_fn
+
+    class Foo:
+        
+        @count_args
+        def fn_with_args(self, foo):
+            self.bar = foo
+
+I bruk:
+
+    >>> foo = Foo()
+    >>> foo.fn_with_args("baz")
+    fikk inn 2 argument(er)
+    >>> foo.bar
+    'baz'
+
+---
+
+# Decorators
+
+... noe om at dekoratorer også kan ta argumenter
+
+---
+
+# Oppsummering
 
 ---
 
