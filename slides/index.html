@@ -152,6 +152,24 @@ Og bruke den:
 
 # Generatorer og iteratorer
 
+Dette var mye styr, kan det gjøres enklere? Yep, med generatorer:
+
+    def countdown(i):
+        while i > 0:
+            yield i
+            i -= 1
+
+Resultat:
+
+    >>> for i in countdown(5):
+    ...     print i,
+    ...
+    5 4 3 2 1
+
+---
+
+# Generatorer og iteratorer
+
 ### Hva er nytteverdien?
 
 Uendelige lister, store datamengder:
