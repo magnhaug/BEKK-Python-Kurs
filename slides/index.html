@@ -47,73 +47,47 @@ xx/xx/2012
 
 # List comprehension
 
-List comprehensions er en konsis måte å lage lister
+List comprehensions er en konsis syntaks for å lage eller transformere lister.
+Lar deg enkelt *iterere* over lister og *transformere* og *filtrere* elementene.
 
-    resultat = [transform   iterasjon  filter]
-    
 Eksempel: 
-    
+   
     >>> resultat = [-i for i in range(10) if i > 5]
     [-6, -7, -8, -9]
-
----
-
-# List comprehension
-
-### Eksempel: Liste med toerpotenser
-
-Med vanlig for-løkke:
-
-    >>> potenser = []
-    >>> for i in range(1,10):
-    ...     potenser.append(2**i)
-    ... 
-    >>> potenser
-    [2, 4, 8, 16, 32, 64, 128, 256, 512]
-
-Med list comprehension:
     
-    >>> [2**i for i in range(1,10)]
-    [2, 4, 8, 16, 32, 64, 128, 256, 512]
+Itererer over `for i in range(10)`, filtrerer `if i > 5`, og transfomerer elementene til `-i`.
+
+Uten list comprehensions ville dette sett ut som:
+
+    resultat = []
+    for i in range(10):
+        if i > 5:
+            resultat.append(-i)
 
 ---
 
 # List comprehension
 
-### Eksempel 2: Gangetabell
+List comprehensions kan også iterere over flere lister samtidig:
 
-Med vanlig for-løkke:
+### Eksempel
 
-    tabell = []
-    for i in range(1,6):
-        rad = []
-        for j in range(1,6):
-            rad.append(i*j)
-        table.append(row)
-    
-Med list comprehension:
-
-    tabell = [[i*j for i in range(1,6)] for j in range(1,6)]
-
-Resultatet blir:
-
-    >>> from pprint import pprint
-    >>> pprint(tabel)
-    [[1, 2, 3, 4, 5],
-     [2, 4, 6, 8, 10],
-     [3, 6, 9, 12, 15],
-     [4, 8, 12, 16, 20],
-     [5, 10, 15, 20, 25]]
+    >>> navn = ['Magnus', 'Kjetil']
+    >>> hilsen = ['Hei', 'Hallo', 'HAI']
+    >>> [h+' '+n for h in hilsen for n in navn] 
+    ['Hei Magnus', 'Hei Kjetil', 'Hallo Magnus', 'Hallo Kjetil', 'HAI Magnus', 'HAI Kjetil']
 
 ---
 
 # List comprehension
 
-### Oppgave
+### Oppgaver
 
-noprimes = [j for i in range(2, 8) for j in range(i*2, 50, i)]
-primes = [x for x in range(2, 50) if x not in noprimes]
-print primes
+Gjør følgende ved hjelp av list comprehensions:
+
+1. Lag en liste med 2er-potenser:  
+   `[2, 4, 8, 16, 32, 64, 128, 256, 512, ...]`
+2. Skriv ut gangetabellen for tallene fra 1 til 10.
 
 ---
 
