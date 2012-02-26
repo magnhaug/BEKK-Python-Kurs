@@ -51,7 +51,8 @@ List comprehensions er en konsis syntaks for å lage eller transformere lister.
 Lar deg enkelt *iterere* over lister og *transformere* og *filtrere* elementene.
 
 Eksempel: 
-   
+
+    .python
     >>> resultat = [-i for i in range(10) if i > 5]
     [-6, -7, -8, -9]
     
@@ -59,6 +60,7 @@ Itererer over `for i in range(10)`, filtrerer `if i > 5`, og transfomerer elemen
 
 Uten list comprehensions ville dette sett ut som:
 
+    .python
     resultat = []
     for i in range(10):
         if i > 5:
@@ -72,6 +74,7 @@ List comprehensions kan også iterere over flere lister samtidig:
 
 ### Eksempel
 
+    .python
     >>> navn = ['Magnus', 'Kjetil']
     >>> hilsen = ['Hei', 'Hallo', 'HAI']
     >>> [h+' '+n for h in hilsen for n in navn] 
@@ -96,6 +99,7 @@ Gjør følgende ved hjelp av list comprehensions:
 
 Gammeldags iterator
 
+    .python
     >>> items = [1, 4, 5]
     >>> it = iter(items)
     >>> it.next()
@@ -116,6 +120,7 @@ Gammeldags iterator
 
 Syntaktisk sukker
 
+    .python
     >>> items = [1, 4, 5]
     >>> for i in items:
     ...     print i,
@@ -128,6 +133,7 @@ Syntaktisk sukker
 
 La oss implementere en iterator selv:
 
+    .python
     class countdown(object):
         def __init__(self,start):
             self.count = start
@@ -142,6 +148,7 @@ La oss implementere en iterator selv:
 
 Og bruke den:
 
+    .python
     >>> c = countdown(5)
     >>> for i in c:
     ...     print i,
@@ -154,6 +161,7 @@ Og bruke den:
 
 Dette var mye styr, kan det gjøres enklere? Yep, med generatorer:
 
+    .python
     def countdown(i):
         while i > 0:
             yield i
@@ -161,6 +169,7 @@ Dette var mye styr, kan det gjøres enklere? Yep, med generatorer:
 
 Resultat:
 
+    .python
     >>> for i in countdown(5):
     ...     print i,
     ...
@@ -174,6 +183,7 @@ Resultat:
 
 Uendelige lister, store datamengder:
 
+    .python
     >>> from itertools import count
     >>> c = count()
     >>> c.next()
@@ -191,6 +201,7 @@ Spørsmål: Hvordan holder man en uendelig liste i minne?!
 
 List comprehensions kan automagisk skrives som en generator:
 
+    .python
     >>> liste = [i for i in range(10)]
     >>> generator = (i for i in range(10))
     
@@ -244,6 +255,7 @@ Lambdaer er én-linjes funksjoner uten navn:
 
 Vanlig funksjon:
 
+    .python
     >>> def funksjonen_min(num):
     ...     return num*2
 
@@ -252,6 +264,7 @@ Vanlig funksjon:
 
 Lambda:
 
+    .python
     >>> lambdaen_min = lambda num: num*2
     >>> lambdaen_min(3)
     6
@@ -344,6 +357,7 @@ I bruk:
 
 Dekoratoren kan også fint brukes på metoder på objekter:
 
+    .python
     def count_args(fn):
         def decorated_fn(*args, **kwargs):
             print "fikk inn %d argument(er)" % len(args)
@@ -358,6 +372,7 @@ Dekoratoren kan også fint brukes på metoder på objekter:
 
 I bruk:
 
+    .python
     >>> foo = Foo()
     >>> foo.fn_with_args("baz")
     fikk inn 2 argument(er)
