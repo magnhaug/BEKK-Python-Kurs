@@ -38,7 +38,7 @@ xx/xx/2012
 
 * Grunnleggende Python
 * List comprehension
-* Generatorer og iteratorer
+* Generatorer og iteratorer (teori)
 * Generator expressions
 * Lambda-funskjoner
 * Decorators
@@ -117,11 +117,124 @@ print primes
 
 ---
 
-# Generators og iteratorer
+# Generatorer og iteratorer
+
+Gammeldags iterator
+
+    >>> items = [1, 4, 5]
+    >>> it = iter(items)
+    >>> it.next()
+    1
+    >>> it.next()
+    4
+    >>> it.next()
+    5
+    >>> it.next()
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    StopIteration
+    >>>
 
 ---
- 
+
+# Generatorer og iteratorer
+
+Syntaktisk sukker
+
+    >>> items = [1, 4, 5]
+    >>> for i in items:
+    ...     print i,
+    ...
+    1 4 5
+
+---
+
+# Generatorer og iteratorer
+
+La oss implementere en iterator selv:
+
+    class countdown(object):
+        def __init__(self,start):
+            self.count = start
+        def __iter__(self):
+            return self
+        def next(self):
+            if self.count <= 0:
+                raise StopIteration
+            r = self.count
+            self.count -= 1
+            return r
+
+Og bruke den:
+
+    >>> c = countdown(5)
+    >>> for i in c:
+    ...     print i,
+    ...
+    5 4 3 2 1
+
+---
+
+# Generatorer og iteratorer
+
+### Hva er nytteverdien?
+
+Uendelige lister:
+
+    >>> from itertools import count
+    >>> c = count()
+    >>> c.next()
+    0
+    >>> c.next()
+    1
+    >>> c.next()
+    2
+
+Spørsmål: Hvordan holder man en uendelig liste i minne?!
+
+---
+
 # Generator expressions
+
+List comprehensions kan automagisk skrives som en generator:
+
+    >>> liste = [i for i in range(10)]
+    >>> generator = (i for i in range(10))
+    
+    >>> print liste
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    
+    >>> print generator
+    <generator object <genexpr> at 0x10ff3e410>
+    
+    >>> for i in liste:
+    ...   print i,
+    ... 
+    0 1 2 3 4 5 6 7 8 9
+    
+    >>> for i in liste:
+    ...   print i,
+    ... 
+    0 1 2 3 4 5 6 7 8 9
+    
+    >>> for i in generator:
+    ...   print i,
+    ... 
+    0 1 2 3 4 5 6 7 8 9
+    
+    >>> for i in generator:
+    ...   print i,
+    ... 
+
+Hva skjedde her?
+
+---
+
+# Generator expressions
+
+### Oppgaver:
+
+
 
 ---
 
