@@ -239,6 +239,48 @@ Hva skjedde her?
 
 # Lambda-funksjoner
 
+Lambdaer er én-linjes funksjoner uten navn:
+
+Vanlig funksjon:
+
+    >>> def funksjonen_min(num):
+    ...     return num*2
+
+    >>> funksjonen_min(3)
+    6
+
+Lambda:
+
+    >>> lambdaen_min = lambda num: num*2
+    >>> lambdaen_min(3)
+    6
+
+---
+
+# Lambda-funksjoner
+
+Og lambdaer kan også sendes inn som argumenter til andre funksjoner.
+
+    .python
+    >>> def double( num ):
+    ...     return num * 2
+    ... 
+
+    >>> map(double, range(10))
+    [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+Dette blir ofte mer konsist med en lambda:
+
+    .python
+    >>> map (lambda num : num * 2, range(10))
+    [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+Akkurat dette tilfellet blir kanskje vel så pent med en list comprehension:
+
+    .python
+    >>> [num * 2 for num in range(10)]
+    [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
 ---
 
 # Decorators
