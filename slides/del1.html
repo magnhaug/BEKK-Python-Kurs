@@ -22,7 +22,7 @@
 
 # Python-kurs
 
-## Introduksjon + Idiomatisk python
+## Del 1: Introduksjon
 
 Forelesning ved NTNU
 
@@ -36,14 +36,251 @@ Forelesning ved NTNU
 
 # Agenda
 
-* Grunnleggende Python
-* \*args og \*\*kwargs
+* Om Python
+* Grunnleggende syntaks
+* Funksjoner og kontrollflyt
+* Lister, tupler og dictionaries
+* Løkker
+* Fil-IO
+* `\*args` og `\*\*kwargs`
 * Objektorientering
 * Ducktyping
 
 ---
 
-# \*args og \*\*kwargs
+# Om Python
+
+* Kjøres av en interpreter
+
+* Dynamisk, sterkt typet
+
+* Konsis og lesbar syntaks
+
+        .python
+        print "Hello world!"
+
+---
+
+# Grunnleggende syntaks
+
+* Whitespace _er_ signifikant
+
+    * Innrykket bestemmer nøstingen
+    
+    * Ingen krøllparenteser
+    
+* Variabler trenger ikke å deklareres
+    
+* Ingen semikolon; ett uttrykk per linje
+
+* `print` gir output; `input` venter på at brukeren skriver inn en verdi og gir deg verdien med rett datatype
+
+        .python
+        age = input("Please enter your age: ")
+        if age >= 20:
+            price = age * 5
+            print "Welcome - admission is kr.", price
+        else:
+            print "Get lost!"
+
+---
+
+# Dynamisk og sterk typing
+
+* En variabel har ikke en fast datatype - men _verdien_ en variabel refererer til har det, og man kan ikke uten videre blande typer. Hva man har lov til å gjøre med en variabel bestemmes av verditypen den refererer til.
+    
+    * Dette er tillatt:
+            
+            .python
+            a = "hei"
+            a = 42
+    
+    * Men ikke dette: 
+    
+            .python
+            a = "42"
+            b = 7
+            c = a + b
+            
+    * Kan gjøre eksplisitt konvertering mellom primitive typer: `c = a + str(b)` eller `c = int(a) + b`
+
+---
+
+# Moduler
+
+* Mye funksjonalitet kommer pakket inn i _moduler_. Man kan bruke kode fra en modul ved...
+
+    * ... å importere hele modulen og bruke modulnavnet
+
+            .python
+            import math
+            print math.sqrt(42)
+    * ... å importere akkurat den funksjonen/klassen man trenger
+    
+            .python
+            from math import sqrt
+            print sqrt(42)
+
+---
+
+# Oppgave
+
+* Lag et program som ber brukeren om å mate inn tre tall (a, b og c), og så printer den ene løsningen av annengradsligningen ax^2 + bx + c = 0 ved hjelp av formelen a = (b + sqrt(b^2 - 4ac)) / (2a)
+
+    * (Valgfritt) Få programmet til å finne ut om annengradsligningen har én, to eller ingen løsninger, og printer alle de mulige løsningene. Programmet skal altså ikke krasje (men bare printe ingenting) dersom det blir negativt tall under roten.
+
+---
+
+# Lister
+
+* En liste er et utvidbart array
+
+* Kan inneholde elementer av forskjellige typer
+
+* Lages med `[]`:
+    
+        .python
+        a = []          # Tom liste
+        b = [4, -2, 7]  # 3 elementer av samme type
+        c = ["hei", 2]  # 2 elementer av forskjellig type
+        print b         # [4, -2, 7]
+        print len(b)    # 3
+
+---
+
+# Lister
+
+    .python
+    a = []
+    TODO
+
+---
+
+# Tupler
+
+* En tuppel er som en liste som ikke kan endres etter at den er opprettet
+
+* Brukes ofte når man vil returnere mer enn én verdi fra en funksjon
+
+* Lages med `()`:
+        
+        .python
+        t = (2, 9, 5)
+        print len(t)    # 3
+        print t[2]      # 5
+        t.append(7)     # Ikke lov
+        t[2] = 8        # Ikke lov
+
+---
+
+# Løkker
+
+* While-løkker fungerer som i Java:
+
+        .python
+        number = 35782
+        digits = 0
+        while number > 0:
+            number /= 10
+            digits += 1     # ++ finnes ikke
+
+---
+
+# Løkker
+
+* For-løkker i Python fungerer som foreach-løkker i Java: de itererer over en _sekvens_ av elementer (f.eks. en liste)
+    
+    * Java:
+    
+            .java
+            int[] numbers = new int[] {4, 9, 2, -5, 3};
+            for (int x : numbers)
+                System.out.println(x);
+    
+    * Python:
+    
+            .python
+            numbers = [4, 9, 2, -5, 3]
+            for x in numbers:
+                print x
+
+* Selv om dette lar oss iterere gjennom en liste, får vi ikke vite underveis hvor vi er
+
+---
+
+# Løkker
+
+* Hvordan kan man skrive "vanlige" for-løkker à la Java, som teller indekser fra 0 og oppover?
+
+    * Vi kan bruke `range(n)` eller `xrange(n)`, som skaper en liste med tall fra `0` til `n - 1`:
+    
+            .python
+            print xrange(4)             # [0, 1, 2, 3]
+            print len(numbers)          # 5
+            print xrange(len(numbers))  # [0, 1, 2, 3, 4]
+            # Merk at sistnevnte gir en liste med indeksene til numbers
+    
+    * Java:
+    
+            .java
+            for (int i = 0; i < numbers.length; i++)
+                System.out.println(i + ": " + numbers[i]);
+                
+    * Python:
+    
+            .python
+            for i in xrange(len(numbers)):
+                print i, ":", numbers[i]
+
+---
+
+# Oppgave (lister)
+
+* Lag et program som ber brukeren skrive inn en mengde tall og putter tallene i en liste og...
+
+    * (Enkelt) Printer listen etterpå, ett element per linje (så du kan ikke bare skrive `print numbers`)
+    
+    * (Middels) Printer det største tallet fra listen (uten å bruke `max()`)
+    
+    * (Vanskelig) Sorterer listen (uten å bruke `sort()`) og printer den
+
+---
+
+# Dictionaries
+
+* Samme som `Dictionary<Object, Object>` i Java
+
+* Et slags array hvor indeksene ikke trenger å være tall
+
+* Skaper koblinger mellom _nøkler_ (keys) og _verdier_ (values)
+    
+    * Når man legger en verdi inn i en dictionary, kobler man den til en nøkkel, og ved å oppgi nøkkelen kan man få tilbake verdien
+    
+    * Hver nøkkel har én verdi knyttet til seg, men den kan byttes ut
+    
+            .python
+            d = {"Ola": 91827364, "Lise": 94128345, "Nils": 41536287}
+            d["Kari"] = 46239521    # Legger til en ny nøkkel+verdi
+            d["Ola"] = 94238164     # Bytter ut verdien for en eksisterende nøkkel
+            print d["Lise"]         # Henter verdien for en nøkkel
+            for name in d:          # Itererer gjennom nøklene    
+                print name, ":", d[name]
+
+---
+
+# Oppgave (dictionaries)
+
+TODO
+
+---
+
+# Slices
+
+* TODO
+
+---
+
+# `*args` og `**kwargs`
 
 Kan være nyttig å kunne kalle en funksjon med et varierende antall parametere:
 
@@ -72,7 +309,7 @@ Tuppelen `args` inneholder altså alle overskytende posisjonelle argumenter. Leg
 
 ---
 
-# \*args og \*\*kwargs
+# `*args` og `**kwargs`
 
 Kan vi gjøre det samme med keyword-arguments?
 
@@ -98,7 +335,7 @@ navnet `kwargs`, vi kunne like godt skrevet `**food`.
 
 ---
 
-# \*args og \*\*kwargs
+# `*args` og `**kwargs`
 
 Kan også kombineres:
 
@@ -113,7 +350,7 @@ Kan også kombineres:
 
 ---
 
-# \*args og \*\*kwargs
+# `*args` og `**kwargs`
 
 ### Oppgaver
 
@@ -136,7 +373,7 @@ Kan også kombineres:
 
 ---
 
-# \*args og \*\*kwargs
+# `*args` og `**kwargs`
 
 Vi kan også gjøre en slags motsatt operasjon:
 
@@ -155,7 +392,7 @@ Hva skjer her? `*` "pakker ut" listen, og blir det samme som om vi skrev:
 
 ---
 
-# \*args og \*\*kwargs
+# `*args` og `**kwargs`
 
 Dette kan vi også gjøre med kwargs:
 
