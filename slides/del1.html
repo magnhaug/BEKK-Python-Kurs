@@ -88,10 +88,10 @@ Forelesning ved NTNU
 
 * Kommentarer lages med `#`; multiline-kommentarer finnes ikke
 
-* `print` gir output; `input` venter på at brukeren skriver inn en verdi og gir deg verdien med rett datatype
+* `print` gir output; `raw_input` venter på at brukeren skriver inn en verdi og gir deg verdien med rett datatype
 
         .python
-        age = input("Please enter your age: ")
+        age = raw_input("Please enter your age: ")
         if age >= 20:
             price = age * 5
             print "Welcome - admission is kr.", price
