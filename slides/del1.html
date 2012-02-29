@@ -331,13 +331,20 @@ Forelesning ved NTNU
     
             .python
             d = {"Ola": 91827364, "Lise": 94128345, "Nils": 41536287}
-            d["Kari"] = 46239521    # Legger til en ny nøkkel+verdi
-            d["Ola"] = 94238164     # Bytter ut verdien for en eksisterende nøkkel
-            print d["Lise"]         # Henter verdien for en nøkkel
-            d.has_key("Ola")        # True
-            d.has_key("Per")        # False
-            for name in d:          # Itererer gjennom nøklene    
+            d["Kari"] = 46239521      # Legger til en ny nøkkel+verdi
+            d["Ola"] = 94238164       # Bytter ut verdien for en eksisterende nøkkel
+            print d["Lise"]           # Henter verdien for en nøkkel
+            print "Ola" in d          # True
+            print "Per" in d          # False
+
+            for name in d:            # Itererer gjennom nøklene    
                 print name, ":", d[name]
+            
+            print d.get("Ola")        # henter verdien for "Ola" (samme som d["Ola"])
+            print d.get("Ola", 1881)  # henter verdien for "Ola" (91827364)
+            print d.get("Per", 1881)  # henter default-verdien, siden Per ikke er i telefonboka (1881)
+
+
 
 ---
 
