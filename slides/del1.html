@@ -163,6 +163,8 @@ Forelesning ved NTNU
 
 * Samme regler for parametersending som i Java gjelder (tall og strenger som modifiseres av funksjonen vil ikke bli endret utenfor funksjonen, men lister som sendes inn kan endres av funksjonen)
 
+* Programkjøringen starter med første kodelinje som _ikke_ hører til en funksjon
+
 ---
 
 # Oppgave
@@ -323,6 +325,8 @@ Forelesning ved NTNU
             d["Kari"] = 46239521    # Legger til en ny nøkkel+verdi
             d["Ola"] = 94238164     # Bytter ut verdien for en eksisterende nøkkel
             print d["Lise"]         # Henter verdien for en nøkkel
+            d.has_key("Ola")        # True
+            d.has_key("Per")        # False
             for name in d:          # Itererer gjennom nøklene    
                 print name, ":", d[name]
 
@@ -330,7 +334,11 @@ Forelesning ved NTNU
 
 # Oppgave (dictionaries)
 
-TODO
+* (Middels) Lag en telefonbok ved hjelp av et dictionary. Hvis brukeren skriver inn `L`, skal brukeren spørres om et navn og et nummer, og dette skal legges inn i dictionaryet (og evt. overskrive det gamle nummeret for det navnet). Hvis brukeren skriver inn `S`, skal brukeren spørres om et navn, og så skal programmet printe nummeret for det navnet.
+
+* (Vanskelig) Lag en telefonbok hvor man kan legge inn flere telefonnumre for samme person. For å få til dette må verdiene i dictionaryet være lister. Lag evt. mulighet for å slette et nummer.
+
+* (Vanskelig) Lag en lang streng ved å kopiere teksten fra f.eks. Wikipedia-artikkelen om Python inn i koden. `text.split()` vil gi deg en liste med alle ordene i strengen. Bruk løkker og en dictionary til å telle antall forekomster av hvert ord i strengen, og print resultatene.
 
 ---
 
