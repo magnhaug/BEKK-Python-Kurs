@@ -14,6 +14,10 @@
 
     <link rel="stylesheet/less" type="text/css" href="../lib/bekk.less">
     <script src="http://lesscss.googlecode.com/files/less-1.1.5.min.js" type="text/javascript"></script>
+    
+    <style type="text/css">
+        li p { margin: 0; }
+    </style>
   </head>
   <body>
     <textarea id="source">
@@ -50,14 +54,21 @@ Forelesning ved NTNU
 
 # Om Python
 
-* Kjøres av en interpreter
+* Laget i 1991 av Guido van Rossum
 
-* Dynamisk, sterkt typet
+* Støtter imperativ, objektorientert og funksjonell programmering
+
+* Dynamisk og sterkt typet
 
 * Konsis og lesbar syntaks
-
+        
         .python
         print "Hello world!"
+
+* Kjøres av en interpreter
+
+        .bash
+        > python hello.py
 
 ---
 
@@ -70,8 +81,12 @@ Forelesning ved NTNU
     * Ingen krøllparenteser
     
 * Variabler trenger ikke å deklareres
-    
+
 * Ingen semikolon; ett uttrykk per linje
+    
+    * Bruk `\` hvis du _må_ dele opp en linje
+
+* Kommentarer lages med `#`; multiline-kommentarer finnes ikke
 
 * `print` gir output; `input` venter på at brukeren skriver inn en verdi og gir deg verdien med rett datatype
 
@@ -87,22 +102,29 @@ Forelesning ved NTNU
 
 # Dynamisk og sterk typing
 
-* En variabel har ikke en fast datatype - men _verdien_ en variabel refererer til har det, og man kan ikke uten videre blande typer. Hva man har lov til å gjøre med en variabel bestemmes av verditypen den refererer til.
-    
-    * Dette er tillatt:
-            
-            .python
-            a = "hei"
-            a = 42
-    
-    * Men ikke dette: 
-    
-            .python
-            a = "42"
-            b = 7
-            c = a + b
-            
-    * Kan gjøre eksplisitt konvertering mellom primitive typer: `c = a + str(b)` eller `c = int(a) + b`
+* _Dynamisk typing_: En variabel har ikke en fast datatype; hva man har lov til å gjøre med en variabel bestemmes av verditypen den refererer til
+* _Sterk typing_: _verdien_ en variabel refererer til har en fast datatype, og man kan ikke uten videre blande typer
+
+* Dette er tillatt, pga. dynamisk typing:
+        
+        .python
+        a = "hei"
+        print len(a)
+        a = 42
+        print a - 7
+
+* Men ikke dette, pga. statisk typing:
+
+        .python
+        a = "42"
+        b = 7
+        c = a + b
+        
+* Kan gjøre eksplisitt konvertering mellom primitive typer:
+
+        .python
+        c = a + str(b) # "427"
+        c = int(a) + b # 49
 
 ---
 
@@ -115,6 +137,7 @@ Forelesning ved NTNU
             .python
             import math
             print math.sqrt(42)
+            
     * ... å importere akkurat den funksjonen/klassen man trenger
     
             .python
@@ -123,11 +146,39 @@ Forelesning ved NTNU
 
 ---
 
+# Funksjoner
+
+* Deklareres med `def`
+
+* Returtypen oppgis ikke, og man oppgir bare parameternavnene
+
+        .python
+        def safeDivide(a, b):
+            if b == 0:
+                return "Impossible"
+            else
+                return a / b
+
+* En funksjon kan returnere forskjellige typer fra gang til gang, og må ta høyde for at parametertypene kan være forskjellige fra gang til gang
+
+* Samme regler for parametersending som i Java gjelder (tall og strenger som modifiseres av funksjonen vil ikke bli endret utenfor funksjonen, men lister som sendes inn kan endres av funksjonen)
+
+---
+
 # Oppgave
 
-* Lag et program som ber brukeren om å mate inn tre tall (a, b og c), og så printer den ene løsningen av annengradsligningen ax^2 + bx + c = 0 ved hjelp av formelen a = (b + sqrt(b^2 - 4ac)) / (2a)
+* Lag et program som ber brukeren om å mate inn tre tall (`a`, `b` og `c`), og så printer den ene løsningen av annengradsligningen _ax_<sup>2</sup> + _bx_ + _c_ = 0 ved hjelp av formelen _x_ = (_b_ + sqrt(_b_<sup>2</sup> - 4_ac_)) / (2_a_)
+    
+    * Hint: `x ** y` gir _x_<sup>_y_</sup>
 
     * (Valgfritt) Få programmet til å finne ut om annengradsligningen har én, to eller ingen løsninger, og printer alle de mulige løsningene. Programmet skal altså ikke krasje (men bare printe ingenting) dersom det blir negativt tall under roten.
+    
+    * (Valgfritt) Gjør selve utregningen (men ikke inputlesingen eller printingen) i en funksjon som tar `a`, `b` og `c` som parameter og returnerer svarene. Retur av variabelt antall verdier gjøres slik:
+        
+            .python
+            return ()       # Ingen verdier
+            return (x)      # Én verdi
+            return (x, y)   # To verdier
 
 ---
 
@@ -144,6 +195,9 @@ Forelesning ved NTNU
         b = [4, -2, 7]  # 3 elementer av samme type
         c = ["hei", 2]  # 2 elementer av forskjellig type
         print b         # [4, -2, 7]
+        print b[0]      # 4
+        print b[1]      # -2
+        print b[2]      # 7
         print len(b)    # 3
 
 ---
@@ -151,8 +205,14 @@ Forelesning ved NTNU
 # Lister
 
     .python
-    a = []
-    TODO
+    a = [3, 9, 8]
+    a.append(2)         # [3, 9, 8, 2]
+    a.append(5)         # [3, 9, 8, 2, 5]
+    a.pop()             # [3, 9, 8, 2]
+    a.extend([1, 7])    # [3, 9, 8, 2, 1, 7]
+    b = a
+    b[0] = 3
+    print a             # [0, 9, 8, 2, 1, 7]
 
 ---
 
@@ -234,15 +294,15 @@ Forelesning ved NTNU
 
 ---
 
-# Oppgave (lister)
+# Oppgave (løkker og lister)
 
-* Lag et program som ber brukeren skrive inn en mengde tall og putter tallene i en liste og...
+* Lag et program som ber brukeren skrive inn så mange tall som helst og avslutte med teksten `x` (hint: bruk `input()` og `while`). Tallene skal puttes i en liste (`append()`), og så skal programmet...
 
-    * (Enkelt) Printer listen etterpå, ett element per linje (så du kan ikke bare skrive `print numbers`)
+    * (Enkelt) Printe listen etterpå, ett element per linje (så du kan ikke bare skrive `print numbers`)
     
-    * (Middels) Printer det største tallet fra listen (uten å bruke `max()`)
+    * (Middels) Printe det største tallet fra listen (uten å bruke `max()`)
     
-    * (Vanskelig) Sorterer listen (uten å bruke `sort()`) og printer den
+    * (Vanskelig) Sortere listen (uten å bruke `sort()`) og printe den
 
 ---
 
