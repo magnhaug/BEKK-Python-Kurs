@@ -88,10 +88,12 @@ List comprehensions kan også iterere over flere lister samtidig:
 
 Gjør følgende ved hjelp av list comprehensions:
 
+1. Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
 1. Lag en liste med 2er-potenser:  
    `[2, 4, 8, 16, 32, 64, 128, 256, 512, ...]`
-2. Skriv ut gangetabellen for tallene fra 1 til 10.
-3. TODO: Flere oppgaver...
+1. Lag liste med alle oddetall som er multiplikat av et tall mellom 3 og 7 og et tall mellom 10 og 14.
+1. Skriv ut gangetabellen for tallene fra 1 til 10.
+1. TODO: Flere oppgaver...
 
 ---
 
@@ -294,6 +296,16 @@ Akkurat dette tilfellet blir kanskje vel så pent med en list comprehension:
     .python
     >>> [num * 2 for num in range(10)]
     [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+    >>> # eller
+    >>> [double(num) for num in range(10)]
+    [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+---
+
+# Decorators
+
+Noe om hva decorators er..  
+AOP..
 
 ---
 
