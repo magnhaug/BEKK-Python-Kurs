@@ -49,15 +49,22 @@ Magnus Haug / Kjetil Valle
 List comprehensions er en konsis syntaks for å lage eller transformere lister.
 Lar deg enkelt *iterere* over lister og *transformere* og *filtrere* elementene.
 
-Eksempel: 
+Syntaks:
 
     .python
-    >>> resultat = [-i for i in range(10) if i > 5]
-    [-6, -7, -8, -9]
+    resultat = [output for var in list if condition]
     
-Itererer over `for i in range(10)`, filtrerer `if i > 5`, og transfomerer elementene til `-i`.
+- `output` er elementene som ender opp i den endelige lista. Her kan vi skrive ut variablen direkte, eller som del av et utrykk.
+- `list` kan være referanse til en liste, eller en generator/iterator. Fungerer på samme måte her som i vanlige for-løkker.
+- `if condition` kan filtrere bort elementer vi ikke ønsker å få med i resultatet. Dette siste leddet er valgfritt.
 
-Uten list comprehensions ville dette sett ut som:
+---
+
+# List comprehension
+
+### Et enkelt eksempel
+
+Iterér over alle tall fra 0 til 10, filtrer ut de som er større enn 5, og gang disse med -1 før de lagres i en ny liste.
 
     .python
     resultat = []
@@ -65,19 +72,49 @@ Uten list comprehensions ville dette sett ut som:
         if i > 5:
             resultat.append(-i)
 
+Med list comprehension kan vi i stedet skrive dette som:
+
+    .python
+    resultat = [-i for i in range(10) if i > 5]
+    
+Hva skjer her? Vi itererer `for i in range(10)`, filtrerer `if i > 5`, og transfomerer de resterende elementene til `-i`.
+
 ---
 
 # List comprehension
 
-List comprehensions kan også iterere over flere lister samtidig:
+List comprehensions kan også gjøres med nestede løkker:
 
-### Eksempel
+Eksmpel med 2 nivåer:
 
     .python
     >>> navn = ['Magnus', 'Kjetil']
     >>> hilsen = ['Hei', 'Hallo', 'HAI']
     >>> [h+' '+n for h in hilsen for n in navn] 
     ['Hei Magnus', 'Hei Kjetil', 'Hallo Magnus', 'Hallo Kjetil', 'HAI Magnus', 'HAI Kjetil']
+
+Eller 5...
+
+    .python
+    >>> [str(a)+str(b)+str(c)+str(d)+str(e) for a in range(10) for b in range(10) \
+    ... for c in range(10) for d in range(10) for e in range(10)]
+    ['00000', '00001', '00002', '00003', ..., '99996', '99997', '99998', '99999']
+
+---
+
+# List-comprehension
+
+Fra versjon 2.7 finnes det også tilsvarende syntax for å lage set og dictionaries:
+
+    .python
+    >>> [ n*n for n in range(5) ] # vanlig list comprehension
+    [0, 1, 4, 9, 16]
+    >>>
+    >>> { n*n for n in range(5) } # set comprehension
+    {0, 1, 4, 16, 9}
+    >>>
+    >>> { n: n*n for n in range(5) } # dict comprehension
+    {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
 
 ---
 
@@ -88,11 +125,10 @@ List comprehensions kan også iterere over flere lister samtidig:
 Gjør følgende ved hjelp av list comprehensions:
 
 1. Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
-1. Lag en liste med 2er-potenser:  
-   `[2, 4, 8, 16, 32, 64, 128, 256, 512, ...]`
+1. Lag en liste med 2er-potenser: `[2, 4, 8, 16, 32, 64, 128, 256, 512, ...]`
+1. Lag dictionary over de samme potensene der nøkkel er `i` og verdi er `2**i`.
 1. Lag liste med alle oddetall som er multiplikat av et tall mellom 3 og 7 og et tall mellom 10 og 14.
-1. Skriv ut gangetabellen for tallene fra 1 til 10.
-1. TODO: Flere oppgaver...
+1. Skriv ut gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
 
 ---
 
