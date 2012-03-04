@@ -333,16 +333,59 @@ Akkurat dette tilfellet blir kanskje vel så pent med en list comprehension:
     .python
     >>> [num * 2 for num in range(10)]
     [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
-    >>> # eller
-    >>> [double(num) for num in range(10)]
-    [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+---
+
+# Lambda-funksjoner
+
+### Oppgaver
+
+TODO
 
 ---
 
 # Decorators
 
-Noe om hva decorators er..  
-AOP..
+En dekorator endrer dynamisk funksjonaliteten av en funksjon uten å måtte subklasse eller endre funksjonen som blir dekorert.
+
+Syntaks:
+
+    .python
+    @bar_decorator
+    def get_foo():
+        return "foo"
+    
+    resultat = get_foo()
+
+Er syntaktisk sukker for følgende:
+
+    .python
+    def get_foo():
+        return "foo"
+    resultat = bar_decorator(get_foo)
+
+---
+
+# Decorators
+
+En dekorator er en funksjon* som tar en funksjon som argument og returnerer en annen funksjon*.
+
+Den enklest tenklige dekoratoren gjør ingenting:
+
+    .python
+    def ingenting(fn):
+        return fn
+
+Til vanlig oppretter vi en ny funksjon inni dekorator-funksjonen, og returerer denne.
+
+    .python
+    def bar_decorator(fn):
+        def ny_fn():
+            # her kan vi gjøre hva vi vil!
+            # vanligvis inkluderer det et kall til fn()
+        return ny_fn
+
+I den nye funksjonen kan vi definere funksjonalitet som skal skje før og etter den dekorerte funksjonen kalles. Eller vi kan la være å kalle den i det hele tatt. Eller vi kan endre argumentene den får inn. Eller...
 
 ---
 
@@ -377,56 +420,48 @@ I bruk:
 
 # Decorators
 
-Eksempel på decorator som teller antall argumenter den dekorerte funksjonen får som input:
+For å dekorere funksjoner med argumenter bruker vi * og **.
     
     .python
     def count_args(fn):
-        def decorated_fn(*args, **kwargs):
+        def wrapper_fn(*args, **kwargs):
             print "fikk inn %d argument(er)" % len(args)
             fn(*args, **kwargs)
-        return decorated_fn
+        return wrapper_fn
         
     @count_args
-    def fn_with_args(*args):
+    def fn_with_args(a, *b):
         pass
+        
+    class Foo:
+        @count_args
+        def method_with_args(self, foo):
+            self.bar = foo
 
 I bruk:
         
     .python
-    >>> fn_with_args("foo")
-    fikk inn 1 argument(er)
     >>> fn_with_args("foo","bar")
     fikk inn 2 argument(er)
-    >>> fn_with_args(*range(10))
-    fikk inn 10 argument(er)
+    >>> fn_with_args(*range(8))
+    fikk inn 8 argument(er)
+    >>> foo = Foo()
+    >>> foo.method_with_args("baz")
+    fikk inn 2 argument(er)
 
 ---
 
 # Decorators
 
-Dekoratoren kan også fint brukes på metoder på objekter:
+... noe om at dekoratorer også kan ta argumenter
 
-    .python
-    def count_args(fn):
-        def decorated_fn(*args, **kwargs):
-            print "fikk inn %d argument(er)" % len(args)
-            fn(*args, **kwargs)
-        return decorated_fn
+---
 
-    class Foo:
-        
-        @count_args
-        def fn_with_args(self, foo):
-            self.bar = foo
+# Decorators
 
-I bruk:
+### Oppgaver
 
-    .python
-    >>> foo = Foo()
-    >>> foo.fn_with_args("baz")
-    fikk inn 2 argument(er)
-    >>> foo.bar
-    'baz'
+TODO
 
 ---
 
