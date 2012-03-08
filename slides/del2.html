@@ -478,9 +478,9 @@ Vi har dermed endret på hvordan den dekorerte funksjonen ser ut utenfra, ved å
     ...     """Dette er docstringen til foo"""
     ...     pass
     ... 
-    >>> print foo.__name__
+    >>> foo.__name__
     ny_fn
-    >>> print foo.__doc__
+    >>> foo.__doc__
     None
         
 :'( 
@@ -506,19 +506,17 @@ Dette kan vi passende nok løse ved hjelp av enda en dekorator!
     ...     """foo sin docstring"""
     ...     pass
     ... 
-    >>> print foo.__name__
+    >>> foo.__name__
     foo
-    >>> print foo.__doc__
+    >>> foo.__doc__
     foo sin docstring
 
 :D
-
 
 ---
 
 # Decorators
 
-Dekoratorer kan som nevn også lages ved hjelp av klasser.
 Man kan gjøre mye fancy med dekoratorer. For flere spenstige eksempler, ta en titt på
 
 * [http://wiki.python.org/moin/PythonDecoratorLibrary](http://wiki.python.org/moin/PythonDecoratorLibrary)
