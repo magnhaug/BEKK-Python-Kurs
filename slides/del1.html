@@ -46,7 +46,7 @@ Forelesning ved NTNU
 * Lister, tupler og dictionaries
 * Løkker
 * Fil-IO
-* `\*args` og `\*\*kwargs`
+* `*args` og `**kwargs`
 * Objektorientering
 * Ducktyping
 
@@ -218,6 +218,7 @@ Forelesning ved NTNU
     b = a
     b[0] = 0
     print a             # [0, 9, 8, 2, 1, 7]
+    print a[-1]         # Printer første elementet fra slutten: 7
 
 ---
 
@@ -360,7 +361,19 @@ Forelesning ved NTNU
 
 # Slices
 
-* TODO
+Enkle måter å hente ut sublister:
+
+    >>> liste = ['a', 'b', 'c', 'd', 'e']
+    >>> liste[:3]
+    ['a', 'b', 'c']
+    >>> liste[3:]
+    ['d', 'e']
+    >>> liste[0:5:2] # Stegstørrelse 2, tar annenhvert element
+    ['a', 'c', 'e']
+    >>> liste[::2] # Akkurat at det samme som over
+    ['a', 'c', 'e']
+    >>> liste[:-3] # -3 går bakfra i lista
+    ['a', 'b']
 
 ---
 
@@ -454,6 +467,28 @@ Kan også kombineres:
     5
     6
     lolcat: 1
+
+---
+
+# `*args` og `**kwargs`
+
+### Løsning
+
+1\. Lag en funksjon som tar inn et vilkårlig antall posisjonelle variabler, og returnerer gjennomsnittet av dem:
+    
+    .python
+    def avg (*args):
+        return sum(args) / len(args)
+
+2\. Lag en funksjon som printer ut alt den får av argumenter, en på hver linje:
+
+    .python
+    def print_all (*args, **kwargs):
+        for arg in args:
+            print arg
+
+        for key, value in kwargs.items():
+            print key + ": " + value
 
 ---
 
@@ -600,7 +635,7 @@ Et ofte brukt mønster ved overstyring (overriding):
             if 'apples' in food:
                 raise TypeError("Dogs don't like apples!")
 
-            super(self, Dog).feed(**food)
+            super(Dog, self).feed(**food)
 
 ---
 
@@ -631,6 +666,44 @@ De spiser bare et partall antall av samme frukt på en gang, og de vil bare kose
 
 ---
 
+### En løsning
+
+    class Animal(object):
+        hungry = True
+
+        def __init__(self, name, legs):
+            self.name = name
+            self.legs = legs
+
+        def feed(self, **food):
+            self.hungry = False
+
+
+    class Cute(object):
+        def cuddle(self):
+            print("The %s likes it!" % self.__class__.__name__)
+
+
+    class Unicorn(Animal, Cute):
+
+        def __init__ (self, name, legs=4):
+            super(Unicorn, self).__init__(name, legs)
+
+        def feed(self, **food):
+            for key, value in food.items():
+                if value % 2 == 1:
+                    raise TypeError("Unicorns don't eat odd numbers of fruit")
+
+            super(Unicorn, self).feed(**food)
+
+        def _cuddle (self):
+            if self.hungry:
+                raise TypeError("HUNGRY, ME NO CUDDLE")
+
+            super(Unicorn, self).cuddle()
+
+---
+
 .middle.center
 
 # Ducktyping
@@ -640,30 +713,6 @@ _When I see a bird that walks like a duck_
 _and swims like a duck and quacks like a duck,_
 
 _I call that bird a duck._
-
----
-
-.pushed
-
-# This is a duck
-
-![Alt text](images/quak1.jpg)
-
----
-
-.pushed
-
-# Is this a duck?
-
-![Alt text](images/quak2.jpg)
-
----
-
-.pushed
-
-# Is this a duck?
-
-![Alt text](images/quak3.jpg)
 
 ---
 
@@ -690,10 +739,6 @@ Når man skal bruke en metode: spør om tilgivelse, ikke tillatelse:
         obj.quack()
     except (AttributeError, TypeError):
         print(obj + " kunne ikke si et kvekk")
-
----
-
-# Oppsummering
 
 ---
 
