@@ -346,41 +346,44 @@ TODO
 
 # Decorators
 
-En dekorator endrer dynamisk funksjonaliteten av en funksjon uten å måtte subklasse eller endre funksjonen som blir dekorert.
+En dekorator endrer dynamisk funksjonaliteten av en funksjon uten å måtte endre selve funksjonen.
 
-Syntaks:
+Syntaksen likner veldig på annotasjoner i Java:
 
     .python
     @bar_decorator
     def get_foo():
         return "foo"
 
-Er syntaktisk sukker for følgende:
+Eksempelet over er egentlig bare syntaktisk sukker for følgende:
 
     .python
     def get_foo():
         return "foo"
     get_foo = bar_decorator(get_foo)
+    
+En dekorator er altså en funksjon* som tar en funksjon som argument og returnerer en ny funksjon.
+
+\* klasser kan også brukes, mer om dette snart…
 
 ---
 
 # Decorators
 
-En dekorator er en funksjon* som tar en funksjon som argument og returnerer en annen funksjon*.
 
-Den enklest tenklige dekoratoren gjør ingenting:
+Den enkleste mulige dekoratoren gjør ingenting:
 
     .python
-    def ingenting(fn):
+    def dekorator(fn):
         return fn
 
 Til vanlig oppretter vi en ny funksjon inni dekorator-funksjonen, og returerer denne.
 
     .python
-    def bar_decorator(fn):
+    def dekorator(fn):
         def ny_fn():
-            # her kan vi gjøre hva vi vil!
-            # vanligvis inkluderer det et kall til fn()
+            # Her kan vi gjøre hva vi vil!
+            # Vanligvis inkluderer det et kall til fn().
         return ny_fn
 
 I den nye funksjonen kan vi definere funksjonalitet som skal skje før og etter den dekorerte funksjonen kalles. Eller vi kan la være å kalle den i det hele tatt. Eller vi kan endre argumentene den får inn. Eller...
@@ -389,80 +392,70 @@ I den nye funksjonen kan vi definere funksjonalitet som skal skje før og etter 
 
 # Decorators
 
-Eksempel på enkel decorator som tar tiden på funksjoner:
+### Et enkelt eksempel 
 
     .python
-    import time
+    >>> def foo(fn):
+    ...     def ny_fn():
+    ...         print "foo"
+    ...         fn()
+    ...     return ny_fn
+    ... 
+    >>> @foo
+    ... def bar():
+    ...     print "bar"
+    ... 
+    >>> bar()
+    foo
+    bar
 
-    def timeit(fn):
-        def wrapped_fn():
-            start = time.time()
-            fn()
-            end_time = time.time()
-            print "brukte %f sekunder" % (time.time() - start)
-        return wrapped_fn
-        
-    @timeit
-    def treg_funksjon():
-        time.sleep(2)
-
-I bruk:
-    
-    .python
-    >>> treg_funksjon()
-    brukte 2.001827 sekunder
-    >>> treg_funksjon()
-    brukte 2.002062 sekunder
+TODO beskrive hva som skjer
 
 ---
 
 # Decorators
 
-For å dekorere funksjoner med argumenter bruker vi * og **.
+For å dekorere funksjoner med ulikt antall argumenter bruker vi * og **.
+
+Eksempel på en dekorator som teller antall argumenter en funksjon får inn:
     
     .python
-    def count_args(fn):
-        def wrapper_fn(*args, **kwargs):
-            print "fikk inn %d argument(er)" % len(args)
-            fn(*args, **kwargs)
-        return wrapper_fn
-        
-    @count_args
-    def fn_with_args(a, *b):
+    >>> def count_args(fn):
+    ...     def wrapper_fn(*args, **kwargs):
+    ...         antall = len(args) + len(kwargs)
+    ...         print "fikk inn %d argumenter" % antall
+    ...         fn(*args, **kwargs)
+    ...     return wrapper_fn
+    ... 
+    >>> @count_args
+    ... def foo(*args, **kwargs):
+    ...     pass
+    ... 
+    >>> foo()
+    fikk inn 0 argumenter
+    >>> foo(1, 2, 3)
+    fikk inn 3 argumenter
+    >>> foo(1, 2, 3, bar="baz")
+    fikk inn 4 argumenter
+    >>> foo(*range(1000000))
+    fikk inn 1000000 argumenter
+
+---
+
+# Decorators
+
+TODO stacking av decorators
+
+    @foo
+    @bar
+    def baz():
         pass
-        
-    class Foo:
-        @count_args
-        def method_with_args(self, foo):
-            self.bar = foo
-
-I bruk:
-        
-    .python
-    >>> fn_with_args("foo","bar")
-    fikk inn 2 argument(er)
-    >>> fn_with_args(*range(8))
-    fikk inn 8 argument(er)
-    >>> foo = Foo()
-    >>> foo.method_with_args("baz")
-    fikk inn 2 argument(er)
-
----
-
-# Decorators
-
-stacking av decorators
-
-@foo
-@bar
-def baz():
-    pass
     
-def baz()
-    pass
-baz = foo(bar(baz))
-
-... noe om at dekoratorer også kan ta argumenter 
+Er det samme som:
+        
+    def baz()
+        pass
+    baz = foo(bar(baz))
 
 [wiki](http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Decorators)
 
@@ -473,7 +466,7 @@ baz = foo(bar(baz))
 Man kan gjøre mye fancy med dekoratorer. For flere spenstige eksempler, ta en titt på
 
 * [http://wiki.python.org/moin/PythonDecoratorLibrary](http://wiki.python.org/moin/PythonDecoratorLibrary)
-st
+
 ---
 
 # Decorators
@@ -481,6 +474,7 @@ st
 ### Oppgaver
 
 1. Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
+1. Lag en dekorator som tar tiden på den dekorerte funksjonen. Hint: Du bruker `time()` i modulen `time` for finne tidspunkt.
 1. Lag en `@ignore` decorator som gjør at kall til den dekorerte funksjonen ikke lenger gjør noenting.
 
 TODO: moar
