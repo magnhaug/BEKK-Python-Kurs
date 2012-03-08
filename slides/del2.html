@@ -354,15 +354,13 @@ Syntaks:
     @bar_decorator
     def get_foo():
         return "foo"
-    
-    resultat = get_foo()
 
 Er syntaktisk sukker for følgende:
 
     .python
     def get_foo():
         return "foo"
-    resultat = bar_decorator(get_foo)
+    get_foo = bar_decorator(get_foo)
 
 ---
 
@@ -453,15 +451,39 @@ I bruk:
 
 # Decorators
 
-... noe om at dekoratorer også kan ta argumenter
+stacking av decorators
 
+@foo
+@bar
+def baz():
+    pass
+    
+def baz()
+    pass
+baz = foo(bar(baz))
+
+... noe om at dekoratorer også kan ta argumenter 
+
+[wiki](http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Decorators)
+
+---
+
+# Decorators
+
+Man kan gjøre mye fancy med dekoratorer. For flere spenstige eksempler, ta en titt på
+
+* [http://wiki.python.org/moin/PythonDecoratorLibrary](http://wiki.python.org/moin/PythonDecoratorLibrary)
+st
 ---
 
 # Decorators
 
 ### Oppgaver
 
-TODO
+1. Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
+1. Lag en `@ignore` decorator som gjør at kall til den dekorerte funksjonen ikke lenger gjør noenting.
+
+TODO: moar
 
 ---
 
