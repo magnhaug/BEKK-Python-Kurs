@@ -398,7 +398,7 @@ I den nye funksjonen kan vi definere funksjonalitet som skal skje før og etter 
     >>> def foo(fn):
     ...     def ny_fn():
     ...         print "foo"
-    ...         fn()
+    ...         return fn()
     ...     return ny_fn
     ... 
     >>> @foo
@@ -409,22 +409,22 @@ I den nye funksjonen kan vi definere funksjonalitet som skal skje før og etter 
     foo
     bar
 
-TODO beskrive hva som skjer
-
 ---
 
 # Decorators
 
 For å dekorere funksjoner med ulikt antall argumenter bruker vi * og **.
 
-Eksempel på en dekorator som teller antall argumenter en funksjon får inn:
+### Eksempel 
+
+Dekorator som teller antall argumenter en funksjon får inn:
     
     .python
     >>> def count_args(fn):
     ...     def wrapper_fn(*args, **kwargs):
     ...         antall = len(args) + len(kwargs)
     ...         print "fikk inn %d argumenter" % antall
-    ...         fn(*args, **kwargs)
+    ...         return fn(*args, **kwargs)
     ...     return wrapper_fn
     ... 
     >>> @count_args
@@ -444,44 +444,106 @@ Eksempel på en dekorator som teller antall argumenter en funksjon får inn:
 
 # Decorators
 
-TODO stacking av decorators
+Det fungerer også fint å stacke dekoratorer på hverandre.
 
     @foo
     @bar
     def baz():
         pass
     
-Er det samme som:
+Blir det samme som:
         
     def baz()
         pass
     baz = foo(bar(baz))
 
-[wiki](http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Decorators)
+---
+
+# Decorators
+
+Dekoratorene vi har skrevet til nå erstatter funksjonene våre med nye funksjoner.
+Vi har dermed endret på hvordan den dekorerte funksjonen ser ut utenfra, ved å endre navn, doc-string, etc.
+
+
+    .python
+    >>> def buu_dekorator(fn):
+    ...     def ny_fn(*args, **kwargs):
+    ...         # noe artig her
+    ...         return fn(*args, **kwargs)
+    ...     return ny_fn
+    ... 
+    >>> @buu_dekorator
+    ... def foo():
+    ...     """Dette er docstringen til foo"""
+    ...     pass
+    ... 
+    >>> print foo.__name__
+    ny_fn
+    >>> print foo.__doc__
+    None
+        
+:'( 
 
 ---
 
 # Decorators
 
+Dette kan vi passende nok løse ved hjelp av enda en dekorator!
+
+    .python
+    >>> from functools import wraps
+    >>> 
+    >>> def yay_dekorator(fn):
+    ...     @wraps(fn)
+    ...     def ny_fn(*args, **kwargs):
+    ...         # noe artig her
+    ...         return fn(*args, **kwargs)
+    ...     return ny_fn
+    ... 
+    >>> @yay_dekorator
+    ... def foo():
+    ...     """foo sin docstring"""
+    ...     pass
+    ... 
+    >>> print foo.__name__
+    foo
+    >>> print foo.__doc__
+    foo sin docstring
+
+:D
+
+
+---
+
+# Decorators
+
+Dekoratorer kan som nevn også lages ved hjelp av klasser.
 Man kan gjøre mye fancy med dekoratorer. For flere spenstige eksempler, ta en titt på
 
 * [http://wiki.python.org/moin/PythonDecoratorLibrary](http://wiki.python.org/moin/PythonDecoratorLibrary)
 
 ---
 
+
 # Decorators
 
 ### Oppgaver
 
 1. Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
-1. Lag en dekorator som tar tiden på den dekorerte funksjonen. Hint: Du bruker `time()` i modulen `time` for finne tidspunkt.
+1. Lag en dekorator som tar tiden på den dekorerte funksjonen. 
 1. Lag en `@ignore` decorator som gjør at kall til den dekorerte funksjonen ikke lenger gjør noenting.
 
-TODO: moar
+Hint: Slik finner du tidspunkt i Python:
+
+    .python
+    from time import time
+    tidspunkt = time()
 
 ---
 
 # Easter Eggs
+
+### Try this at home!
 
 The Zen of Python
 
@@ -495,10 +557,12 @@ Hva Python-utviklerne tenker om { og }
 
 Alternaltiv implementasjon av Hello World
 
+    .python
     import __hello__
 
 Og sist men ikke minst:
 
+    .python
     import antigravity
 
 ---
