@@ -295,13 +295,13 @@ Funksjoner i python er første klasses, dvs. at vi kan gjøre mer med dem enn vi
 F.eks. kan vi sende dem inn som parametre til funksjoner:
 
     .python
-    >>> def call(fn, *args):
+    >>> def kall(fn, *args):
     ...   return fn(*args)
     ... 
-    >>> def multiply_by_two(a):
+    >>> def gang_med_to(a):
     ...   return a*2
     ... 
-    >>> call(multiply_by_two, 7)
+    >>> kall(gang_med_to, 7)
     14
 
 ---
