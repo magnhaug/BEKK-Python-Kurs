@@ -39,7 +39,7 @@ Magnus Haug / Kjetil Valle
 * List comprehension
 * Generatorer og iteratorer (teori)
 * Generator expressions
-* Lambda-funskjoner
+* Lambda-funksjoner
 * Decorators
 
 ---
@@ -135,7 +135,8 @@ Gjør følgende ved hjelp av list comprehensions:
 # Generatorer og iteratorer
 
 Iteratorer er kanskje verdens kjedeligste konsept, men det er en viktig byggesten.
-Flere av de python-elementene vi allerede kjenner fungerer som iteratorer, f.eks. lister:
+Flere av de python-elementene vi allerede kjenner kan fungere som iteratorer..
+F.eks. lister:
 
     .python
     >>> items = [1, 4, 5]
@@ -284,6 +285,24 @@ Hva skjedde her?
 
 4. Print de første 20 av dem, f.eks. slik:  
     `print [alle_partall.next() for i in xrange(20)]`
+
+
+---
+
+# Lambda-funksjoner
+
+Funksjoner i python er første klasses, dvs. at vi kan gjøre mer med dem enn vi er vant med fra Java:
+F.eks. kan vi sende dem inn som parametre til funksjoner:
+
+    .python
+    >>> def call(fn, *args):
+    ...   return fn(*args)
+    ... 
+    >>> def multiply_by_two(a):
+    ...   return a*2
+    ... 
+    >>> call(multiply_by_two, 7)
+    14
 
 ---
 
