@@ -54,8 +54,8 @@ Syntaks:
     .python
     resultat = [output for var in list if condition]
     
-- `output` er elementene som ender opp i den endelige lista. Her kan vi skrive ut variablen direkte, eller som del av et utrykk.
-- `list` kan være referanse til en liste, eller en generator/iterator. Fungerer på samme måte her som i vanlige for-løkker.
+- `output` er elementene som ender opp i den endelige lista. Her kan vi skrive ut `var` direkte, eller som del av et utrykk.
+- `list` kan være referanse til en liste, eller en generator/iterator. Iterering fungerer på samme måte her som i vanlige for-løkker.
 - `if condition` kan filtrere bort elementer vi ikke ønsker å få med i resultatet. Dette siste leddet er valgfritt.
 
 ---
@@ -102,7 +102,7 @@ Eller 5...
 
 ---
 
-# List-comprehension
+# List comprehension
 
 Fra versjon 2.7 finnes det også tilsvarende syntax for å lage set og dictionaries:
 
@@ -124,11 +124,11 @@ Fra versjon 2.7 finnes det også tilsvarende syntax for å lage set og dictionar
 
 Gjør følgende ved hjelp av list comprehensions:
 
-1. Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
 1. Lag en liste med 2er-potenser: `[2, 4, 8, 16, 32, 64, 128, 256, 512, ...]`
 1. Lag dictionary over de samme potensene der nøkkel er `i` og verdi er `2**i`.
+1. Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
 1. Lag liste med alle oddetall som er multiplikat av et tall mellom 3 og 7 og et tall mellom 10 og 14.
-1. Skriv ut gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
+1. Generer gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
 
 ---
 
