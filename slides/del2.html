@@ -124,11 +124,68 @@ Fra versjon 2.7 finnes det også tilsvarende syntax for å lage set og dictionar
 
 Gjør følgende ved hjelp av list comprehensions:
 
-1. Lag en liste med 2er-potenser: `[2, 4, 8, 16, 32, 64, 128, 256, 512, ...]`
+1. Lag en liste med 2er-potenser. Hint: `2 ** i` gir *2*<sup>*i*</sup>.
 1. Lag dictionary over de samme potensene der nøkkel er `i` og verdi er `2**i`.
 1. Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
 1. Lag liste med alle oddetall som er multiplikat av et tall mellom 3 og 7 og et tall mellom 10 og 14.
 1. Generer gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
+
+---
+
+# List comprehension
+
+### Løsninger
+
+Lag en liste med 2er-potenser. Hint: `2 ** i` gir *2*<sup>*i*</sup>.
+
+    .python
+    >>> [2**i for i in range(1,10)]
+    [2, 4, 8, 16, 32, 64, 128, 256, 512]
+
+Lag dictionary over de samme potensene der nøkkel er `i` og verdi er `2**i`.
+
+    .python
+    >>> {i: 2**i for i in range(1,10)}
+    {1: 2, 2: 4, 3: 8, 4: 16, 5: 32, 6: 64, 7: 128, 8: 256, 9: 512}
+        
+Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
+
+    .python
+    >>> [x for x in range(1,100) if (x%3==0) != (x%7==0)]
+    [3, 6, 7, 9, 12, 14, 15, 18, 24, 27, 28, 30, 33, 35, 36, 39, 45, 48, 49, 51, 54, 56, 57, 60, 66, 
+     69, 70, 72, 75, 77, 78, 81, 87, 90, 91, 93, 96, 98, 99]
+
+
+---
+
+# List comprehension
+
+### Løsninger
+
+        
+Lag liste med alle oddetall som er multiplikat av et tall mellom 3 og 7 og et tall mellom 10 og 14.
+
+    .python
+    >>> [i*j for i in range(3,8) for j in range(10,15) if i*j%2!=0]
+    [33, 39, 55, 65, 77, 91]
+        
+Generer gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
+
+    .python
+    >>> from pprint import pprint
+    >>> tabell = [[i*j for i in range(1,11)] for j in range(1,11)]
+    >>> pprint(tabell)
+    [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+     [2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+     [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
+     [4, 8, 12, 16, 20, 24, 28, 32, 36, 40],
+     [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+     [6, 12, 18, 24, 30, 36, 42, 48, 54, 60],
+     [7, 14, 21, 28, 35, 42, 49, 56, 63, 70],
+     [8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
+     [9, 18, 27, 36, 45, 54, 63, 72, 81, 90],
+     [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]]
+
 
 ---
 
