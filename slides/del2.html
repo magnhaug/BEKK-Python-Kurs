@@ -297,20 +297,31 @@ Og kanskje noen flere eksmpler så man ser hva de kan være nyttige til?
 
 ---
 
-# Lambda-funksjoner
+# Funksjoner
 
-Funksjoner i python er første klasses, dvs. at vi kan gjøre mer med dem enn vi er vant med fra Java:
-F.eks. kan vi sende dem inn som parametre til funksjoner:
+Funksjoner i python er *førsteklasses*, og vi kan derfor gjøre mer med dem enn vi er vant med fra Java.
+At funksjonene er førsteklasses vil si at vi kan
+
+1. sende dem inn som argumenter til andre funksjoner
+1. returnere dem fra funksjoner
+1. tilordne dem til variabler
+1. lagre dem i datastrukturer
+
+Eksempel på 1, 2 og 3
 
     .python
+    >>> def n_doble(n):
+    ...     def fn(a):
+    ...         return n*a
+    ...     return fn
+    ... 
     >>> def kall(fn, *args):
-    ...   return fn(*args)
+    ...     return fn(*args)
     ... 
-    >>> def gang_med_to(a):
-    ...   return a*2
-    ... 
-    >>> kall(gang_med_to, 7)
-    14
+    >>> firedoble = n_doble(4)
+    >>> kall(firedoble, 3)
+    12
+
 
 ---
 
@@ -323,7 +334,7 @@ Vanlig funksjon:
     .python
     >>> def funksjonen_min(num):
     ...     return num*2
-
+    ...
     >>> funksjonen_min(3)
     6
 
@@ -338,20 +349,19 @@ Lambda:
 
 # Lambda-funksjoner
 
-Som alle andre funksjoner i Python, kan også lambaer sendes inn som argumenter til andre funksjoner.
+Som alle andre funksjoner kan også lambaer brukes som argumenter.
 
     .python
     >>> def double( num ):
     ...     return num * 2
     ... 
-
     >>> map(double, range(10))
     [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
 
 Dette blir ofte mer konsist med en lambda:
 
     .python
-    >>> map (lambda num : num * 2, range(10))
+    >>> map(lambda num : num * 2, range(10))
     [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
 
 Akkurat dette tilfellet blir kanskje vel så pent med en list comprehension:
@@ -609,8 +619,8 @@ Og sist men ikke minst:
 # Oppsummering
 
 - List comprehensions er en hendig syntaks for å lage/filtrere/mutere lister.
-- TODO: noe om iteratorer/generatorer
-- Funksjoner er første-klasses i Python, og langt mer fleksible enn i mange andre språk \*host\*Java\*host\*.
+- TODO: noe om iteratorer/generatorer.
+- Funksjoner er første-klasses i Python, og langt mer fleksible enn i mange andre språk.
 - Lambdaer er enlinjes funksjoner uten navn.
 - Dekoratorer lar oss endre funksjonalitet på eksisterende funksjoner uten å endre dem direkte.
 
