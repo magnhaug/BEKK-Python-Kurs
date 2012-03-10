@@ -39,6 +39,7 @@ Magnus Haug / Kjetil Valle
 * List comprehension
 * Generatorer og iteratorer (teori)
 * Generator expressions
+* Funksjoner
 * Lambda-funksjoner
 * Decorators
 
@@ -390,7 +391,7 @@ Vanlig funksjon:
 
     .python
     >>> def funksjonen_min(num):
-    ...     return num*2
+    ...     return num * 2
     ...
     >>> funksjonen_min(3)
     6
@@ -398,7 +399,7 @@ Vanlig funksjon:
 Lambda:
 
     .python
-    >>> lambdaen_min = lambda num: num*2
+    >>> lambdaen_min = lambda num: num * 2
     >>> lambdaen_min(3)
     6
 
@@ -647,22 +648,11 @@ Her er `gjenta` egentlig en funksjon som genererer dekoratorer. `gjenta(4)` lage
 
 # Decorators
 
-Man kan gjøre mye fancy med dekoratorer. 
-For mer informasjon, og flere spenstige eksempler, ta en titt på:
-
-* [http://wiki.python.org/moin/PythonDecoratorLibrary](http://wiki.python.org/moin/PythonDecoratorLibrary)
-* [http://stackoverflow.com/questions/739654/understanding-python-decorators/1594484#1594484](http://stackoverflow.com/questions/739654/understanding-python-decorators/1594484#1594484)
-
----
-
-
-# Decorators
-
 ### Oppgaver
 
-1. Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
-1. Lag en dekorator `@timed` som tar tiden på den dekorerte funksjonen. 
 1. Lag en `@ignore` decorator som gjør at kall til den dekorerte funksjonen ikke lenger gjør noenting.
+1. Lag en dekorator `@timed` som tar tiden på den dekorerte funksjonen. 
+1. Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
 1. Gitt implementasjonen av fibonacci under, lag dekoratoren `@memoize` som lagrer og gjenbruker delløsningene. Regn så ut `fib(100)`.
 
 Slik finner du tidspunkt i Python:
@@ -678,6 +668,68 @@ Implementasjon av fibonacci:
     def fib(a):
         if a in (0,1): return a
         return fib(a-1) + fib(a-2)
+
+---
+
+# Decorators
+
+### Løsninger
+
+Lag en `@ignore` decorator som gjør at kall til den dekorerte funksjonen ikke lenger gjør noenting.
+
+    .python
+    def ignore(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            pass
+        return wrapper
+
+
+Lag en dekorator `@timed` som tar tiden på den dekorerte funksjonen. 
+
+    .python
+    from time import time
+
+    def timed(fn):
+        @wraps(fn)
+        def wrapper():
+            start = time()
+            resultat = fn()
+            print "brukte %f sekunder" % (time() - start)
+            return resultat
+        return wrapper
+
+---
+
+# Decorators
+
+### Løsninger
+
+
+
+Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
+
+    .python
+    def deprecated(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            print "Warning: '%s' is deprecated!" % fn.__name__
+            return fn()
+        return wrapper
+
+Gitt implementasjonen av fibonacci under, lag dekoratoren `@memoize` som lagrer og gjenbruker delløsningene. Regn så ut `fib(100)`.
+
+    .python
+    def memoize(fn):
+        cache = {}
+        @wraps(fn)
+        def wrapper(arg):
+            if arg in cache:
+                return cache[arg]
+            else:
+                cache[arg] = fn(arg)
+                return cache[arg]
+        return wrapper
 
 ---
 
@@ -712,6 +764,7 @@ Og sist men ikke minst:
 - Funksjoner er første-klasses i Python, og langt mer fleksible enn i mange andre språk.
 - Lambdaer er enlinjes funksjoner uten navn.
 - Dekoratorer lar oss endre funksjonalitet på eksisterende funksjoner uten å endre dem direkte.
+  - I praksis bare hendig syntax for å drive med høyere ordens programmering.
 
 ---
 
