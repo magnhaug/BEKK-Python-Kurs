@@ -369,20 +369,20 @@ En dekorator endrer dynamisk funksjonaliteten av en funksjon uten å måtte endr
 Syntaksen likner veldig på annotasjoner i Java:
 
     .python
-    @bar_decorator
-    def get_foo():
+    @dekorator
+    def funksjon():
         return "foo"
 
 Eksempelet over er egentlig bare syntaktisk sukker for følgende:
 
     .python
-    def get_foo():
+    def funksjon():
         return "foo"
-    get_foo = bar_decorator(get_foo)
+    funksjon = dekorator(funksjon)
     
-En dekorator er altså en funksjon* som tar en funksjon som argument og returnerer en ny funksjon.
+En dekorator er altså en funksjon* som tar en funksjon som argument og returnerer en ny funksjon som fungerer som proxy/wrapper for den dekorerte funksjonen.
 
-\* klasser kan også brukes, mer om dette snart…
+\* klasser kan også brukes, men vi fokuserer på funksjoner til å begynne med…
 
 ---
 
@@ -395,7 +395,7 @@ Den enkleste mulige dekoratoren gjør ingenting:
     def dekorator(fn):
         return fn
 
-Til vanlig oppretter vi en ny funksjon inni dekorator-funksjonen, og returerer denne.
+For å gjøre noe mer matnyttig oppretter vi en ny funksjon inni dekorator-funksjonen, og returerer denne.
 
     .python
     def dekorator(fn):
@@ -414,18 +414,22 @@ I den nye funksjonen kan vi definere funksjonalitet som skal skje før og etter 
 
     .python
     >>> def foo(fn):
+    ...     print "inne i dekoratoren"
     ...     def ny_fn():
-    ...         print "foo"
-    ...         return fn()
+    ...         print "starter wrapper-funksjonen"
+    ...         fn()
+    ...         print "slutter wrapper-funksjonen"
     ...     return ny_fn
     ... 
     >>> @foo
     ... def bar():
-    ...     print "bar"
+    ...     print "i den dekorerte funksjon"
     ... 
+    inne i dekoratoren
     >>> bar()
-    foo
-    bar
+    starter wrapper-funksjonen
+    i den dekorerte funksjon
+    slutter wrapper-funksjonen
 
 ---
 
@@ -464,16 +468,18 @@ Dekorator som teller antall argumenter en funksjon får inn:
 
 Det fungerer også fint å stacke dekoratorer på hverandre.
 
-    @foo
-    @bar
-    def baz():
+    .python
+    @dekorator1
+    @dekorator2
+    def funksjon():
         pass
     
 Blir det samme som:
-        
-    def baz()
+
+    .python
+    def funksjon():
         pass
-    baz = foo(bar(baz))
+    funksjon = dekorator1(dekorator2(funksjon))
 
 ---
 
@@ -492,7 +498,7 @@ Vi har dermed endret på hvordan den dekorerte funksjonen ser ut utenfra, ved å
     ... 
     >>> @buu_dekorator
     ... def foo():
-    ...     """Dette er docstringen til foo"""
+    ...     """foo sin docstring"""
     ...     pass
     ... 
     >>> foo.__name__
@@ -534,9 +540,11 @@ Dette kan vi passende nok løse ved hjelp av enda en dekorator!
 
 # Decorators
 
-Man kan gjøre mye fancy med dekoratorer. For flere spenstige eksempler, ta en titt på
+Man kan gjøre mye fancy med dekoratorer. 
+For mer informasjon, og flere spenstige eksempler, ta en titt på:
 
 * [http://wiki.python.org/moin/PythonDecoratorLibrary](http://wiki.python.org/moin/PythonDecoratorLibrary)
+* [http://stackoverflow.com/questions/739654/understanding-python-decorators/1594484#1594484](http://stackoverflow.com/questions/739654/understanding-python-decorators/1594484#1594484)
 
 ---
 
@@ -548,18 +556,25 @@ Man kan gjøre mye fancy med dekoratorer. For flere spenstige eksempler, ta en t
 1. Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
 1. Lag en dekorator som tar tiden på den dekorerte funksjonen. 
 1. Lag en `@ignore` decorator som gjør at kall til den dekorerte funksjonen ikke lenger gjør noenting.
+1. Gitt implementasjonen av fibonacci under, lag dekoratoren `@memoize` som lagrer og gjenbruker delløsningene. Regn ut `fib(100)`.
 
-Hint: Slik finner du tidspunkt i Python:
+Slik finner du tidspunkt i Python:
 
     .python
     from time import time
     tidspunkt = time()
 
+Implementasjon av fibonacci:
+
+    .python
+    @memoize
+    def fib(a):
+        if a in (0,1): return a
+        return fib(a-1) + fib(a-2)
+
 ---
 
 # Easter Eggs
-
-### Try this at home!
 
 The Zen of Python
 
