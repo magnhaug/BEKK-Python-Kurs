@@ -558,6 +558,38 @@ Dette kan vi passende nok løse ved hjelp av enda en dekorator!
 
 # Decorators
 
+Vi kan også lage dekoratorer som tar inn parametere.
+
+    .python
+    >>> def gjenta(ganger):
+    ...     def generert_dekorator(fn):
+    ...         def wrapper(*args, **kwargs):
+    ...             return [fn(*args, **kwargs) for i in range(ganger)]
+    ...         return wrapper
+    ...     return generert_dekorator
+    ... 
+    >>> @gjenta(4)
+    ... def spam():
+    ...     return "spam"
+    ... 
+    >>> spam()
+    ['spam', 'spam', 'spam', 'spam']
+
+Her er `gjenta` egentlig en funksjon som genererer dekoratorer. `gjenta(4)` lager dekoratoren som gjentar funksjonen 4 ganger, som brukes til å dekorere `spam`. Tilsvarende uten det syntaktiske sukkeret blir:
+
+    .python
+    >>> def spam():
+    ...     return "spam"
+    ... 
+    >>> spam = gjenta(4)(spam)
+    >>> spam()
+    ['spam', 'spam', 'spam', 'spam']
+
+
+---
+
+# Decorators
+
 Man kan gjøre mye fancy med dekoratorer. 
 For mer informasjon, og flere spenstige eksempler, ta en titt på:
 
@@ -572,9 +604,9 @@ For mer informasjon, og flere spenstige eksempler, ta en titt på:
 ### Oppgaver
 
 1. Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den dekorerte funksjonern. Bonus hvis du klarer å inkludere navnet på funksjonen i advarselen.
-1. Lag en dekorator som tar tiden på den dekorerte funksjonen. 
+1. Lag en dekorator `@timed` som tar tiden på den dekorerte funksjonen. 
 1. Lag en `@ignore` decorator som gjør at kall til den dekorerte funksjonen ikke lenger gjør noenting.
-1. Gitt implementasjonen av fibonacci under, lag dekoratoren `@memoize` som lagrer og gjenbruker delløsningene. Regn ut `fib(100)`.
+1. Gitt implementasjonen av fibonacci under, lag dekoratoren `@memoize` som lagrer og gjenbruker delløsningene. Regn så ut `fib(100)`.
 
 Slik finner du tidspunkt i Python:
 
