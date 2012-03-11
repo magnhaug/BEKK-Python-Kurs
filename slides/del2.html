@@ -333,12 +333,20 @@ Hva skjedde her?
 
 # Generator expressions
 
-TODO: kanskje noe om fordeler med generator expressions?
+### Fordeler
 
-- generator expressions er mer kompakte (men mindre fleksible) enn vanlige generatorer med yield.
-- generator expressions kan være mer minnevennlige enn list comprehensions.
+- Er mer kompakte (men kan være mindre fleksible) enn vanlige generatorer med yield.
+- Er mer minnevennlige enn lister.
+  - Uendelig lange lister passer dårlig i minnet...
+- Som skapt for input til metoder som arbeider på elementer enkeltvis. (Da kan vi også droppe et sett parenteser.)
 
-Og kanskje noen flere eksmpler så man ser hva de kan være nyttige til?
+        .python
+        sum(x for x in range(100000) if x%2 == 0)
+
+### Ulemper
+
+- Kan ikke itereres over flere ganger.
+- Kan ikke bruke indeksering/slicing eller de vanlige liste-metodene (`append`, `insert`, `count`, `sort`, etc).
 
 ---
 
