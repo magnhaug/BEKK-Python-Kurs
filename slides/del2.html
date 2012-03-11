@@ -65,7 +65,7 @@ Syntaks:
 
 ### Et enkelt eksempel
 
-Iterér over alle tall fra 0 til 10, filtrer ut de som er større enn 5, og gang disse med -1 før de lagres i en ny liste.
+Iterér over alle tall fra 0 til 10, filtrer bort de som ikke er større enn 5, og gang resten med -1 før de lagres i en ny liste.
 
     .python
     resultat = []
@@ -126,9 +126,9 @@ Fra versjon 2.7 finnes det også tilsvarende syntax for å lage set og dictionar
 Gjør følgende ved hjelp av list comprehensions:
 
 1. Lag en liste med 2er-potenser. Hint: `2 ** i` gir *2*<sup>*i*</sup>.
-1. Lag dictionary over de samme potensene der nøkkel er `i` og verdi er `2**i`.
+1. Lag dictionary over de samme potensene der nøkkel er `i` og verdi er `2 ** i`.
 1. Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
-1. Lag liste med alle oddetall som er multiplikat av et tall mellom 3 og 7 og et tall mellom 10 og 14.
+1. Lag liste med alle oddetall som er multiplikat av et tall fra 3 til 7 og et tall fra 10 til 14.
 1. Generer gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
 
 ---
@@ -152,7 +152,7 @@ Lag dictionary over de samme potensene der nøkkel er `i` og verdi er `2**i`.
 Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 men ikke begge.
 
     .python
-    >>> [x for x in range(1,100) if (x%3==0) != (x%7==0)]
+    >>> [x for x in range(1,100) if x%3==0 or x%7==0 if not x%3==x%7==0]
     [3, 6, 7, 9, 12, 14, 15, 18, 24, 27, 28, 30, 33, 35, 36, 39, 45, 48, 49, 51, 54, 56, 57, 60, 66, 
      69, 70, 72, 75, 77, 78, 81, 87, 90, 91, 93, 96, 98, 99]
 
@@ -164,10 +164,10 @@ Lag en liste med alle tall mellom 1 og 100 som er delelig på enten 3 eller 7 me
 ### Løsninger
 
         
-Lag liste med alle oddetall som er multiplikat av et tall mellom 3 og 7 og et tall mellom 10 og 14.
+Lag liste med alle oddetall som er multiplikat av et tall fra 3 til 7 og et tall fra 10 til 14.
 
     .python
-    >>> [i*j for i in range(3,8) for j in range(10,15) if i*j%2!=0]
+    >>> [i*j for i in range(3,8) for j in range(10,15) if i*j%2 != 0]
     [33, 39, 55, 65, 77, 91]
         
 Generer gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
