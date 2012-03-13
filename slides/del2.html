@@ -37,7 +37,7 @@ Magnus Haug / Kjetil Valle
 # Agenda
 
 * List comprehension
-* Generatorer og iteratorer (teori)
+* Generatorer og iteratorer
 * Generator expressions
 * Funksjoner
 * Lambda-funksjoner
@@ -56,7 +56,7 @@ Syntaks:
     resultat = [output for var in list if condition]
     
 - `output` er elementene som ender opp i den endelige lista. Her kan vi skrive ut `var` direkte, eller som del av et utrykk.
-- `list` kan være referanse til en liste, eller en generator/iterator. Iterering fungerer på samme måte her som i vanlige for-løkker.
+- `list` er referanse til en sekvens, og iterering fungerer på samme måte her som i vanlige for-løkker.
 - `if condition` kan filtrere bort elementer vi ikke ønsker å få med i resultatet. Dette siste leddet er valgfritt.
 
 ---
@@ -789,10 +789,15 @@ Og sist men ikke minst:
 # Oppsummering
 
 - List comprehensions er en hendig syntaks for å lage/filtrere/mutere lister.
-- TODO: noe om iteratorer/generatorer.
-- Funksjoner er første-klasses i Python, og langt mer fleksible enn i mange andre språk.
+- Generatorer gir oss muligheten til å generere (uendelig) lange sekvenser uten at disse må lagres i minnet.
+  - Generator-uttrykk er en kompakt og konsis syntaks for å lage generatorer.
+- Funksjoner er første-klasses i Python, og kan derfor:
+  - Brukes som argumenter og returverdier fra andre funksjoner.
+  - Tilordnes variabler.
+  - Lagres i datastrukturer.
 - Lambdaer er enlinjes funksjoner uten navn.
 - Dekoratorer lar oss endre funksjonalitet på eksisterende funksjoner uten å endre dem direkte.
+  - Dekoratorene erstatter den dekorerte funksjonen med en ny funksjon.
   - I praksis bare hendig syntax for å drive med høyere ordens programmering.
 
 ---
