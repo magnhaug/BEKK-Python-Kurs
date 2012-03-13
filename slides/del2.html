@@ -108,14 +108,13 @@ Eller 5...
 Fra versjon 2.7 finnes det også tilsvarende syntax for å lage set og dictionaries:
 
     .python
-    >>> [ n*n for n in range(5) ] # vanlig list comprehension
-    [0, 1, 4, 9, 16]
-    >>>
-    >>> { n*n for n in range(5) } # set comprehension
-    {0, 1, 4, 16, 9}
-    >>>
-    >>> { n: n*n for n in range(5) } # dict comprehension
-    {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+    >>> [n%3 for n in range(5)]
+    [0, 1, 2, 0, 1]
+    >>> {n%3 for n in range(5)}
+    set([0, 1, 2])
+    >>> {n: n%3 for n in range(5)}
+    {0: 0, 1: 1, 2: 2, 3: 0, 4: 1}
+
 
 ---
 
