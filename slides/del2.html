@@ -469,7 +469,7 @@ TODO
 
 # Decorators
 
-En dekorator endrer dynamisk funksjonaliteten av en funksjon uten å måtte endre selve funksjonen.
+Dekoratorer lar oss endre funksjonaliteten av eksisterende funksjoner uten å måtte gjøre endringer i selve funksjonene.
 
 Syntaksen likner veldig på annotasjoner i Java:
 
@@ -497,14 +497,7 @@ En dekorator er altså en funksjon* som tar en funksjon som argument og returner
 
 # Decorators
 
-
-Den enkleste mulige dekoratoren gjør ingenting:
-
-    .python
-    def dekorator(fn):
-        return fn
-
-For å gjøre noe mer matnyttig oppretter vi en ny funksjon inni dekorator-funksjonen, og returerer denne.
+En typisk dekorator ser omtrent slik ut:
 
     .python
     def dekorator(fn):
