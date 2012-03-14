@@ -312,6 +312,7 @@ List comprehensions kan automagisk skrives som en generator:
 
 &nbsp;
 
+    .python
     >>> generator = (i for i in range(10))
     >>> print generator
     <generator object <genexpr> at 0x10ff3e410>
@@ -365,6 +366,29 @@ Hva skjedde her?
 .middle.center
 
 # Pause!
+
+---
+
+### Løsninger:
+
+Lag en list comprehension som lister opp alle partall under 20, og print dem
+
+    .python
+    >>> partall = [i for i in xrange(20) if i%2==0]
+    >>> for i in partall:
+    ...   print i, 
+    ... 
+    0 2 4 6 8 10 12 14 16 18
+
+Lag et generator expression som gjør det samme. Print dem.
+
+    .python
+    >>> partall = (i for i in xrange(20) if i%2==0)
+    >>> for i in partall:
+    ...   print i, 
+    ... 
+    0 2 4 6 8 10 12 14 16 18
+
 
 ---
 
