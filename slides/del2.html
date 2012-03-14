@@ -39,6 +39,7 @@ Magnus Haug / Kjetil Valle
 * List comprehension
 * Generatorer og iteratorer
 * Generator expressions
+* -- Pause --
 * Funksjoner
 * Lambda-funksjoner
 * Decorators
@@ -190,7 +191,7 @@ Generer gangetabellen for tallene fra 1 til 10 som en 2-dimensjonal liste.
 
 # Generatorer og iteratorer
 
-Iteratorer er kanskje verdens kjedeligste konsept, men det er en viktig byggesten.
+Iteratorer er kanskje ikke veldig spennende, men det er en viktig byggesten.
 Flere av de python-elementene vi allerede kjenner kan fungere som iteratorer..
 F.eks. lister:
 
@@ -298,29 +299,26 @@ List comprehensions kan automagisk skrives som en generator:
 
     .python
     >>> liste = [i for i in range(10)]
-    >>> generator = (i for i in range(10))
-    
     >>> print liste
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    
+    >>> for i in liste:
+    ...   print i,
+    ... 
+    0 1 2 3 4 5 6 7 8 9
+    >>> for i in liste:
+    ...   print i,
+    ... 
+    0 1 2 3 4 5 6 7 8 9
+
+&nbsp;
+
+    >>> generator = (i for i in range(10))
     >>> print generator
     <generator object <genexpr> at 0x10ff3e410>
-    
-    >>> for i in liste:
-    ...   print i,
-    ... 
-    0 1 2 3 4 5 6 7 8 9
-    
-    >>> for i in liste:
-    ...   print i,
-    ... 
-    0 1 2 3 4 5 6 7 8 9
-    
     >>> for i in generator:
     ...   print i,
     ... 
     0 1 2 3 4 5 6 7 8 9
-    
     >>> for i in generator:
     ...   print i,
     ... 
@@ -353,11 +351,14 @@ Hva skjedde her?
 ### Oppgaver:
 
 1. Lag en list comprehension som lister opp alle partall under 20, og print dem
-2. Lag et generator expression som gjør det samme. Print dem.
-3. Lag et generator expression som lister opp ALLE partall.
-4. Print de første 20 av dem, f.eks. slik:  
+1. Lag et generator expression som gjør det samme. Print dem.
+1. Lag en generator som lister opp ALLE partall.
+1. Lag et generator expression som lister opp ALLE partall.
+1. Print de første 20 av dem, f.eks. slik:  
     `print [alle_partall.next() for i in xrange(20)]`
-5. Lag en 
+1. Lag en generator som generer tall-sekvensen 1, -1, 2, -2, 3, -3, ...
+1. Lag et generator expression genererer fibonacci-tallene.
+   Bruk denne til å finne det 100 000'ende fibonacci-tallet.
 
 ---
 
@@ -464,7 +465,12 @@ Akkurat dette tilfellet blir kanskje vel så pent med en list comprehension:
 
 ### Oppgaver
 
-TODO
+1. Lag en funksjon som regner ut gjennomsnittet av to tall, som den får som parametre.
+1. Gjør om denne til en lambda.
+1. Utvid lambda-funksjonen til å regne ut gjennomsnittet av en liste med tall.
+1. Lag en funksjon make_adder(x), som returnerer en funksjon.  
+  Den returnerte funksjonen skal legge til x til et tall.
+1. Skriv kode som bruker make_adder.
 
 ---
 
@@ -483,7 +489,7 @@ Syntaksen likner veldig på annotasjoner i Java:
 
 # Decorators
 
-Eksempelet på forige slide er egentlig bare syntaktisk sukker for følgende:
+Eksempelet på forrige slide er egentlig bare syntaktisk sukker for følgende:
 
     .python
     def funksjon():
