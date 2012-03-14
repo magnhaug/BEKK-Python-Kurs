@@ -421,6 +421,9 @@ Bruk denne til å finne det 100 000'ende fibonacci-tallet.
     ...     while True:
     ...             yield a
     ...             a, b = a+b, a
+    >>> a = fib()
+    >>> for i in xrange(100000):
+    ...     result  = a.next()
 
 ---
 
