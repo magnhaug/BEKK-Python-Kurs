@@ -725,9 +725,9 @@ Lag en dekorator `@timed` som tar tiden på den dekorerte funksjonen.
 
     def timed(fn):
         @wraps(fn)
-        def wrapper():
+        def wrapper(*args, **kwargs):
             start = time()
-            resultat = fn()
+            resultat = fn(*args, **kwargs)
             print "brukte %f sekunder" % (time() - start)
             return resultat
         return wrapper
@@ -747,7 +747,7 @@ Lag dekoratoren `@deprecated` som skriver ut en advarsel hvis noen bruker den de
         @wraps(fn)
         def wrapper(*args, **kwargs):
             print "Warning: '%s' is deprecated!" % fn.__name__
-            return fn()
+            return fn(*args, **kwargs)
         return wrapper
 
 Gitt implementasjonen av fibonacci under, lag dekoratoren `@memoize` som lagrer og gjenbruker delløsningene. Regn så ut `fib(100)`.
