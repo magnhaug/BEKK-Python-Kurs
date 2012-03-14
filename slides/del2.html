@@ -90,20 +90,15 @@ Hva skjer her? Vi itererer `for i in range(10)`, filtrerer `if i%3 == 0`, og tra
 
 List comprehensions kan også gjøres med nestede løkker:
 
-Eksmpel med 2 nivåer:
+Eksmpel med 3 nivåer:
 
     .python
-    >>> navn = ['Magnus', 'Kjetil']
-    >>> hilsen = ['Hei', 'Hallo', 'HAI']
-    >>> [h+' '+n for h in hilsen for n in navn] 
-    ['Hei Magnus', 'Hei Kjetil', 'Hallo Magnus', 'Hallo Kjetil', 'HAI Magnus', 'HAI Kjetil']
+    >>> bokstaver = ['x','y','x']
+    >>> [a+b+c for a in bokstaver for b in bokstaver for c in bokstaver] 
+    ['xxx', 'xxy', 'xxx', 'xyx', 'xyy', 'xyx', 'xxx', 'xxy', 'xxx', 'yxx', 'yxy', 'yxx', 'yyx', 'yyy', 
+    'yyx', 'yxx', 'yxy', 'yxx', 'xxx', 'xxy', 'xxx', 'xyx', 'xyy', 'xyx', 'xxx', 'xxy', 'xxx']
 
-Eller 5...
 
-    .python
-    >>> [str(a)+str(b)+str(c)+str(d)+str(e) for a in range(10) for b in range(10) \
-    ... for c in range(10) for d in range(10) for e in range(10)]
-    ['00000', '00001', '00002', '00003', ..., '99996', '99997', '99998', '99999']
 
 ---
 
@@ -363,6 +358,12 @@ Hva skjedde her?
 4. Print de første 20 av dem, f.eks. slik:  
     `print [alle_partall.next() for i in xrange(20)]`
 5. Lag en 
+
+---
+
+.middle.center
+
+# Pause!
 
 ---
 
